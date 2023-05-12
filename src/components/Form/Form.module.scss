@@ -1,0 +1,6 @@
+.Form {
+    &__innerFlexContainer {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+}

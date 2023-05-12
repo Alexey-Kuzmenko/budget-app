@@ -1,0 +1,9 @@
+@use '../../scss/utilities/variables' as vars;
+
+.Layout {
+    max-width: 100%;
+    min-height: 100vh;
+    height: auto;
+
+    background-color: vars.$indigo-500;
+}
