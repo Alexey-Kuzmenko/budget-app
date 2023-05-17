@@ -9,8 +9,7 @@ interface MenuToggleProps {
 }
 
 function MenuToggle({ menuIsOpen, onClickHandler }: MenuToggleProps) {
-    // ! debug
-    console.log(menuIsOpen)
+
     return (
         <div onClick={onClickHandler}>
             {
