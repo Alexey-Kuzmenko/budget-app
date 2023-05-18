@@ -7,7 +7,7 @@ function Layout() {
     return (
         <div className={styles.Layout}>
             <Header />
-            <main>
+            <main style={{ paddingTop: '20vh' }}>
                 <Container>
                     <Outlet />
                 </Container>

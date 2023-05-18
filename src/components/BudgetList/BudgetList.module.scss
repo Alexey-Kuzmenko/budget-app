@@ -1,13 +1,13 @@
 @use '../../scss/utilities/variables' as vars;
 
 .BudgetList {
-    max-width: 1000px;
     width: 100%;
+    max-width: 550px;
     margin: 0 auto;
-    // ! testing
-    height: 50vh;
+    padding-bottom: 30px;
+    height: auto;
     border-radius: vars.$border-radius;
-    border: vars.$border-style;
+    row-gap: 10px;
 
     display: flex;
     flex-flow: column nowrap;
