@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import styles from './BudgetList.module.scss'
 import BudgetListItem from './BudgetListItem/BudgetListItem';
-import { Typography } from '@mui/material'
+import { Typography, Alert } from '@mui/material'
 // ! testing
 import BudgetItemType from '../../budgetItem/budgetItem'
 import BudgetItem from '../../budgetItem/budgetItem';
@@ -33,7 +33,9 @@ function BudgetList() {
     return (
         <Box className={styles.BudgetList}>
             <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
-            {renderListItems()}
+            {
+                !budget.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
+            }
         </Box>
     );
 }
