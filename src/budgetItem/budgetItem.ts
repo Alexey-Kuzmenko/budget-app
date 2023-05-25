@@ -1,4 +1,4 @@
-type BudgetType = 'income' | 'outcome'
+export type BudgetType = 'income' | 'outcome'
 
 class BudgetItem {
     public id: number
@@ -13,7 +13,5 @@ class BudgetItem {
         this.comment = comment
     }
 }
-
-export type BudgetItemType = InstanceType<typeof BudgetItem>
 
 export default BudgetItem
