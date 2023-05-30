@@ -1,8 +1,9 @@
 .BudgetListItem {
     &__innerFlexContainer {
         display: flex;
-        align-items: center;
+        align-items: baseline;
         justify-content: space-between;
         width: 100%;
+        margin-bottom: 5px;
     }
 }
