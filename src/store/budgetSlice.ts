@@ -4,10 +4,12 @@ import { UUID } from "uuid-generator-ts";
 
 interface BudgetState {
     budgetList: BudgetItem[]
+    totalBalance: number
 }
 
 const initialState: BudgetState = {
-    budgetList: []
+    budgetList: [],
+    totalBalance: 0
 }
 
 type FormData = Omit<BudgetItem, 'id'>
@@ -29,10 +31,23 @@ const budgetSlice = createSlice({
         },
         deleteBudgetItem: (state, { payload }: PayloadAction<string>) => {
             state.budgetList = state.budgetList.filter((budgetItem) => budgetItem.id !== payload)
+        },
+        calcTotalBalance: (state) => {
+            let total: number = 0
+
+            state.budgetList.forEach(({ type, value }: BudgetItem) => {
+                if (type === 'income') {
+                    total = total + value
+                } else {
+                    total = total - value
+                }
+            })
+
+            state.totalBalance = total
         }
     }
 })
 
-export const { addBudgetItem, deleteBudgetItem } = budgetSlice.actions
+export const { addBudgetItem, deleteBudgetItem, calcTotalBalance } = budgetSlice.actions
 
 export default budgetSlice.reducer
