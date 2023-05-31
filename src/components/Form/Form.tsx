@@ -1,15 +1,19 @@
 import styles from './Form.module.scss'
 import { TextField, FormControl, Select, InputLabel, MenuItem, Button, FormHelperText } from '@mui/material';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { BudgetType } from '../../budgetItem/budgetItem';
+import { BudgetType } from '../../budget.types';
+import { useAppDispatch } from '../../hooks';
+import { addBudgetItem } from '../../store/budgetSlice';
 
 interface FormValues {
     type: BudgetType
-    comments: string
-    value: number | string
+    comment: string
+    value: number
 }
 
 function Form() {
+    const dispatch = useAppDispatch()
+
     const {
         control,
         formState: {
@@ -22,15 +26,15 @@ function Form() {
         {
             defaultValues: {
                 type: 'income',
-                comments: '',
-                value: ''
+                comment: '',
+                value: 0
             },
             mode: 'onBlur'
         }
     )
 
     const onFormSubmitHandler: SubmitHandler<FormValues> = (formData): void => {
-        console.log(formData);
+        dispatch(addBudgetItem(formData))
         reset()
     }
 
@@ -60,21 +64,21 @@ function Form() {
                 />
 
                 <Controller
-                    name='comments'
+                    name='comment'
                     rules={{ required: true }}
                     control={control}
-                    render={({ field }) => <TextField id="outlined-basic" label="Comments" variant="outlined" type='text' inputProps={{ maxLength: 40 }} helperText={errors.comments ? "Field is required" : ""} error={errors.comments ? true : false} {...field} />}
+                    render={({ field }) => <TextField id="outlined-basic" label="Comments" variant="outlined" type='text' inputProps={{ maxLength: 40 }} helperText={errors.comment ? "Field is required" : ""} error={errors.comment ? true : false} {...field} />}
                 />
 
                 <Controller
                     name='value'
-                    rules={{ required: true }}
+                    rules={{ required: true, min: { value: 1, message: 'The value must be more than 0' } }}
                     control={control}
-                    render={({ field }) => <TextField id="outlined-basic" label="Value" variant="outlined" type='number' helperText={errors.value ? "Field is required" : ""} error={errors.value ? true : false} {...field} />}
+                    render={({ field }) => <TextField id="outlined-basic" label="Value" variant="outlined" type='number' helperText={errors.value?.message ? errors.value?.message : errors.value ? "Field is required" : ""} error={errors.value ? true : false} {...field} />}
                 />
 
                 <div className={styles.Form__controls}>
-                    <Button variant="outlined" color='success' size='medium' type='submit' disabled={!isValid}>
+                    <Button variant="outlined" color='success' size='medium' type='submit' sx={{ 'zIndex': 10 }} disabled={!isValid}>
                         Add
                     </Button>
 

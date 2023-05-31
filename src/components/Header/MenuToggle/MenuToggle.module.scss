@@ -4,7 +4,7 @@
     color: vars.$white;
     display: none !important;
     cursor: pointer;
-    z-index: 10;
+    z-index: 3001;
 
     @media (max-width: vars.$tablet-s) {
         display: block !important;

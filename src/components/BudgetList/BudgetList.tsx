@@ -2,29 +2,28 @@ import Box from '@mui/material/Box';
 import styles from './BudgetList.module.scss'
 import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material'
-// ! testing
-import BudgetItemType from '../../budgetItem/budgetItem'
-import BudgetItem from '../../budgetItem/budgetItem';
+import { BudgetItem } from '../../budget.types';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { deleteBudgetItem } from '../../store/budgetSlice';
 
-// ! testing solution
-const budget: BudgetItemType[] = []
-
-for (let i = 0; i <= 10; i++) {
-    budget.push(new BudgetItem(i, 'income', (i * 100), 'some comment'))
-}
-// ! debug
-console.log(budget);
 
 function BudgetList() {
+    const { budgetList } = useAppSelector(state => state.budget)
+    const dispatch = useAppDispatch()
+
+    const onDeleteClickHandler = (id: string) => {
+        dispatch(deleteBudgetItem(id))
+    }
 
     const renderListItems = (): JSX.Element[] => {
-        return budget.map(({ id, type, value, comment }: BudgetItemType) => {
+        return budgetList.map(({ id, type, value, comment }: BudgetItem) => {
             return (
                 <BudgetListItem
                     key={id}
                     type={type}
                     value={value}
                     comment={comment}
+                    onClickHandler={() => onDeleteClickHandler(id)}
                 />
             )
         })
@@ -34,7 +33,7 @@ function BudgetList() {
         <Box className={styles.BudgetList}>
             <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
             {
-                !budget.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
+                !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
             }
         </Box>
     );

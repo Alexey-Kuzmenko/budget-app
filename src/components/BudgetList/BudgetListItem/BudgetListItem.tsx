@@ -3,33 +3,37 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
-import BudgetItemType from '../../../budgetItem/budgetItem'
+import { Divider, Typography } from '@mui/material';
+import { BudgetItem } from '../../../budget.types'
 
-type BudgetItemProps = Omit<BudgetItemType, 'id'>
+interface BudgetItemProps extends Omit<BudgetItem, 'id'> {
+    onClickHandler: React.MouseEventHandler
+}
 
-function BudgetListItem({ type, value, comment }: BudgetItemProps) {
+function BudgetListItem({ type, value, comment, onClickHandler }: BudgetItemProps) {
     return (
         <Card variant='outlined'>
             <CardContent sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
                 <div className={styles.BudgetListItem__innerFlexContainer}>
-                    <Typography sx={{ fontSize: 14 }} color='darkgreen' gutterBottom textTransform='uppercase'>
+                    <Typography sx={{ fontSize: 14 }} color={type === 'income' ? 'darkgreen' : 'darkred'} gutterBottom textTransform='uppercase'>
                         {type}
                     </Typography>
 
                     <Typography variant="h5" component="div">
-                        {value}
+                        {type === 'outcome' ? `-${value}` : value}
                     </Typography>
                 </div>
 
-                <Typography variant="body2">
+                <Divider sx={{ backgroundColor: 'lightgrey', width: '100%' }} />
+
+                <Typography variant="body2" sx={{ marginTop: '15px' }}>
                     {comment}
                 </Typography>
 
             </CardContent>
 
-            <CardActions>
-                <Button variant='outlined' size="small" color='error'>Delete</Button>
+            <CardActions sx={{ padding: '16px' }}>
+                <Button variant='outlined' size="small" color='error' sx={{ 'zIndex': 10 }} onClick={onClickHandler}>Delete</Button>
             </CardActions>
         </Card>
     );
