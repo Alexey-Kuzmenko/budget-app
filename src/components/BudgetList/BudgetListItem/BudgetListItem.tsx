@@ -11,6 +11,7 @@ interface BudgetItemProps extends Omit<BudgetItem, 'id'> {
 }
 
 function BudgetListItem({ type, value, comment, onClickHandler }: BudgetItemProps) {
+
     return (
         <Card variant='outlined'>
             <CardContent sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
@@ -33,7 +34,7 @@ function BudgetListItem({ type, value, comment, onClickHandler }: BudgetItemProp
             </CardContent>
 
             <CardActions sx={{ padding: '16px' }}>
-                <Button variant='outlined' size="small" color='error' sx={{ 'zIndex': 10 }} onClick={onClickHandler}>Delete</Button>
+                <Button variant='outlined' size="small" color='error' onClick={onClickHandler}>Delete</Button>
             </CardActions>
         </Card>
     );
