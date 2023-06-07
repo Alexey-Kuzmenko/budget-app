@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import budgetReducer from "./budgetSlice";
-
+import dialogReducer from "./dialogSlice";
 
 const store = configureStore({
     reducer: {
-        budget: budgetReducer
+        budget: budgetReducer,
+        dialog: dialogReducer
     }
 })
 

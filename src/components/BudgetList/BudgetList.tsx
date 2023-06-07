@@ -5,14 +5,25 @@ import { Typography, Alert } from '@mui/material'
 import { BudgetItem } from '../../budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { deleteBudgetItem } from '../../store/budgetSlice';
-
+// ? proposal
+import DialogWindow from '../Dialog/Dialog';
+import { showDialog } from '../../store/dialogSlice';
+import { useState } from 'react';
 
 function BudgetList() {
-    const { budgetList } = useAppSelector(state => state.budget)
-    const dispatch = useAppDispatch()
+    const { budgetList } = useAppSelector(state => state.budget);
+    const { isDialogOpen } = useAppSelector(state => state.dialog)
+    const dispatch = useAppDispatch();
+    const [deleteTaskId, setDeleteTaskId] = useState('');
 
     const onDeleteClickHandler = (id: string) => {
-        dispatch(deleteBudgetItem(id))
+        dispatch(showDialog('open'))
+        setDeleteTaskId(id)
+    }
+
+    const onAcceptClickHandler = () => {
+        dispatch(deleteBudgetItem(deleteTaskId))
+        dispatch(showDialog('hidden'))
     }
 
     const renderListItems = (): JSX.Element[] => {
@@ -30,12 +41,25 @@ function BudgetList() {
     }
 
     return (
-        <Box className={styles.BudgetList}>
-            <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
+        <>
+            <Box className={styles.BudgetList}>
+                <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
+                {
+                    !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
+                }
+            </Box>
+
             {
-                !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
+                <DialogWindow
+                    isOpen={isDialogOpen}
+                    title="Confirm action"
+                    contentText="Are you sure that you want to delete the budget item?"
+                    onCloseHandler={() => dispatch(showDialog('hidden'))}
+                    onAcceptHandler={onAcceptClickHandler}
+                />
             }
-        </Box>
+
+        </>
     );
 }
 
