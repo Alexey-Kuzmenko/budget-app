@@ -6,9 +6,12 @@
     padding: 20px 15px;
     margin-bottom: 50px;
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     background-color: vars.$white;
     border-radius: vars.$border-radius;
-    color: #000;
     text-align: justify;
     text-transform: uppercase;
 }

@@ -9,7 +9,7 @@ interface BudgetState {
 
 const initialState: BudgetState = {
     budgetList: [],
-    totalBalance: 0
+    totalBalance: 0,
 }
 
 type FormData = Omit<BudgetItem, 'id'>
