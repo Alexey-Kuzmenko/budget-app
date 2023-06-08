@@ -1,0 +1,6 @@
+@use '../../../scss/utilities/placeholders';
+
+.BudgetListForm {
+    @extend %box-style;
+    justify-content: space-between;
+}

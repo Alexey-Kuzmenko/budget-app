@@ -34,9 +34,7 @@ function Form() {
     )
 
     const onFormSubmitHandler: SubmitHandler<FormValues> = (formData): void => {
-        // ? test solution
         formData.value = +formData.value
-
         dispatch(addBudgetItem(formData))
         reset()
     }

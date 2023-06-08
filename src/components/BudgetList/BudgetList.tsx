@@ -5,10 +5,13 @@ import { Typography, Alert } from '@mui/material'
 import { BudgetItem } from '../../budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { deleteBudgetItem } from '../../store/budgetSlice';
-// ? proposal
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
 import { useState } from 'react';
+
+// ! testing
+import BudgetListForm from './BudgetListForm/BudgetListForm';
+
 
 function BudgetList() {
     const { budgetList } = useAppSelector(state => state.budget);
@@ -42,6 +45,8 @@ function BudgetList() {
 
     return (
         <>
+            <BudgetListForm />
+
             <Box className={styles.BudgetList}>
                 <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
                 {
