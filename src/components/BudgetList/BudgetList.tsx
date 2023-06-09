@@ -7,17 +7,19 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { deleteBudgetItem } from '../../store/budgetSlice';
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 // ! testing
 import BudgetListForm from './BudgetListForm/BudgetListForm';
-
+import { SelectChangeEvent } from '@mui/material'
 
 function BudgetList() {
     const { budgetList } = useAppSelector(state => state.budget);
     const { isDialogOpen } = useAppSelector(state => state.dialog)
     const dispatch = useAppDispatch();
     const [deleteTaskId, setDeleteTaskId] = useState('');
+    const [inputValue, setInputValue] = useState('');
+    const [selectValue, setSelectValue] = useState('');
 
     const onDeleteClickHandler = (id: string) => {
         dispatch(showDialog('open'))
@@ -29,8 +31,25 @@ function BudgetList() {
         dispatch(showDialog('hidden'))
     }
 
+    // ? potential solution
+    const onInputChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
+        const value: string = e.currentTarget.value
+        // ! debug
+        console.log(value);
+        setInputValue(value);
+    }
+
+    const onSelectChangeHandler = (e: SelectChangeEvent) => {
+        const value: string = e.target.value
+        // ! debug
+        console.log(value);
+        setSelectValue(value)
+    }
+
     const renderListItems = (): JSX.Element[] => {
-        return budgetList.map(({ id, type, value, comment }: BudgetItem) => {
+        return budgetList.filter((item: BudgetItem) => {
+            return inputValue === '' ? item : item.comment.includes(inputValue)
+        }).map(({ id, type, value, comment }: BudgetItem) => {
             return (
                 <BudgetListItem
                     key={id}
@@ -45,7 +64,12 @@ function BudgetList() {
 
     return (
         <>
-            <BudgetListForm />
+            <BudgetListForm
+                inputValue={inputValue}
+                selectValue={selectValue}
+                inputChangeHandler={onInputChangeHandler}
+                selectChangeHandler={onSelectChangeHandler}
+            />
 
             <Box className={styles.BudgetList}>
                 <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>

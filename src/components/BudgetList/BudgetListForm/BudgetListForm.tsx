@@ -1,33 +1,20 @@
 import styles from "./BudgetListForm.module.scss"
 import Box from "@mui/material/Box"
-import { TextField, Select, FormControl, SelectChangeEvent, InputLabel, MenuItem } from '@mui/material'
-import React, { useState } from "react";
+import { TextField, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent } from '@mui/material'
+import { ReactNode } from "react"
 
+interface BudgetListFormProps {
+    inputValue: string
+    selectValue: string
+    inputChangeHandler: React.ChangeEventHandler<HTMLInputElement>
+    selectChangeHandler: ((event: SelectChangeEvent<string>, child: ReactNode) => void) | undefined
+}
 
-function BudgetListForm() {
-    const [inputValue, setInputValue] = useState('');
-    const [selectValue, setSelectValue] = useState('');
-
-    // ! debug
-    console.group('State values')
-    console.log(inputValue);
-    console.log(selectValue);
-    console.groupEnd()
-
-
-    const onInputChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (event): void => {
-        const value: string = event.currentTarget.value
-        setInputValue(value)
-    }
-
-    const onSelectChangeHandler = (event: SelectChangeEvent): void => {
-        const value: string = event.target.value
-        setSelectValue(value)
-    }
+function BudgetListForm({ inputValue, selectValue, inputChangeHandler, selectChangeHandler }: BudgetListFormProps) {
 
     return (
         <Box className={styles.BudgetListForm}>
-            <TextField id="search-input" label="Search" variant="filled" value={inputValue} onChange={onInputChangeHandler} />
+            <TextField id="search-input" label="Search" variant="filled" value={inputValue} onChange={inputChangeHandler} />
 
             <FormControl variant='filled' sx={{ width: '100%', maxWidth: '100px' }}>
                 <InputLabel id='sort-select-label'>Type</InputLabel>
@@ -36,7 +23,7 @@ function BudgetListForm() {
                     id='sort-items-select'
                     value={selectValue}
                     label='Type'
-                    onChange={onSelectChangeHandler}
+                    onChange={selectChangeHandler}
                 >
                     <MenuItem value="">None</MenuItem>
                     <MenuItem value='income'>Income</MenuItem>
