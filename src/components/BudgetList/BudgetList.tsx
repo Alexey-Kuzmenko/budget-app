@@ -31,14 +31,13 @@ function BudgetList() {
         dispatch(showDialog('hidden'))
     }
 
-    // ? potential solution
+
     const onInputChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
         const value: string = e.currentTarget.value
-        // ! debug
-        console.log(value);
         setInputValue(value);
     }
 
+    // ? potential solution
     const onSelectChangeHandler = (e: SelectChangeEvent) => {
         const value: string = e.target.value
         // ! debug
