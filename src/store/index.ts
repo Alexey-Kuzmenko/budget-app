@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import budgetReducer from "./budgetSlice";
 import dialogReducer from "./dialogSlice";
+import navSlice from "./navSlice";
 
 const store = configureStore({
     reducer: {
         budget: budgetReducer,
-        dialog: dialogReducer
+        dialog: dialogReducer,
+        navigation: navSlice
     }
 })
 

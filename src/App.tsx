@@ -1,10 +1,8 @@
-import React from 'react';
 import './App.css';
 import Layout from './containers/Layout/Layout';
 import { Routes, Route } from 'react-router-dom'
 import BudgetList from './components/BudgetList/BudgetList';
 import HomePage from './pages/HomePage';
-
 
 function App() {
   return (

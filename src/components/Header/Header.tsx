@@ -1,15 +1,17 @@
 import styles from './Header.module.scss'
-import { useState } from 'react';
 import Container from '../../containers/Container/Container';
 import Links from './links.type'
 import { NavLink } from 'react-router-dom'
 import MenuToggle from './MenuToggle/MenuToggle';
 import Logo from '../../assets/budget_app_logo.webp'
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { closeMenu, toggleMenu } from '../../store/navSlice';
 
 const links: Links[] = [{ path: 'home' }, { path: 'about', text: 'about' }]
 
 function Header() {
-    const [menuIsOpen, setMenuIsOpen] = useState(false);
+    const dispatch = useAppDispatch()
+    const { menuIsOpen } = useAppSelector((state) => state.navigation)
 
     const menuClasses: string[] = [styles.Header__menuBody]
 
@@ -18,12 +20,11 @@ function Header() {
     }
 
     const onMenuLinkClickHandler = () => {
-        setMenuIsOpen(false)
+        dispatch(closeMenu())
     }
 
     const onMenuToggleClickHandler = () => {
-        setMenuIsOpen(prevSate => !prevSate)
-        console.log(menuIsOpen)
+        dispatch(toggleMenu())
     }
 
     const renderLinks = (): JSX.Element[] => {
@@ -50,7 +51,7 @@ function Header() {
 
                     <div className={styles.Header__menu}>
 
-                        <MenuToggle menuIsOpen={menuIsOpen} onClickHandler={onMenuToggleClickHandler} />
+                        <MenuToggle onClickHandler={onMenuToggleClickHandler} />
 
                         <nav className={menuClasses.join(' ')}>
                             <div className={styles.Header__menuList}>
