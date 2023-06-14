@@ -25,7 +25,7 @@ function BudgetListForm({ inputValue, selectValue, inputChangeHandler, selectCha
                     label='Type'
                     onChange={selectChangeHandler}
                 >
-                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value='none'>None</MenuItem>
                     <MenuItem value='income'>Income</MenuItem>
                     <MenuItem value='outcome'>Outcome</MenuItem>
                 </Select>

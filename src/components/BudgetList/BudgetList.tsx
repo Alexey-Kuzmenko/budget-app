@@ -8,10 +8,9 @@ import { deleteBudgetItem } from '../../store/budgetSlice';
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
 import React, { useState } from 'react';
-
-// ! testing
 import BudgetListForm from './BudgetListForm/BudgetListForm';
 import { SelectChangeEvent } from '@mui/material'
+
 
 function BudgetList() {
     const { budgetList } = useAppSelector(state => state.budget);
