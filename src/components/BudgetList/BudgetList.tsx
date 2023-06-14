@@ -62,18 +62,21 @@ function BudgetList() {
 
     return (
         <>
-            <BudgetListForm
-                inputValue={inputValue}
-                selectValue={selectValue}
-                inputChangeHandler={onInputChangeHandler}
-                selectChangeHandler={onSelectChangeHandler}
-            />
-
             <Box className={styles.BudgetList}>
+
                 <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
+
+                <BudgetListForm
+                    inputValue={inputValue}
+                    selectValue={selectValue}
+                    inputChangeHandler={onInputChangeHandler}
+                    selectChangeHandler={onSelectChangeHandler}
+                />
+
                 {
                     !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
                 }
+
             </Box>
 
             {

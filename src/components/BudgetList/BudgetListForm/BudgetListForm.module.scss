@@ -1,6 +1,17 @@
 @use '../../../scss/utilities/placeholders';
+@use '../../../scss/utilities/variables' as vars;
 
 .BudgetListForm {
     @extend %box-style;
     justify-content: space-between;
+
+    @media (max-width: vars.$mobile-m) {
+        flex-wrap: wrap;
+        row-gap: 10px;
+
+        div {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
 }
