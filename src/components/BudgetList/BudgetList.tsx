@@ -4,13 +4,14 @@ import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material'
 import { BudgetItem } from '../../budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { deleteBudgetItem } from '../../store/budgetSlice';
+// ! testing fetchBudget
+import { deleteBudgetItem, fetchBudget } from '../../store/budgetSlice';
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
-import React, { useState } from 'react';
+// ! added useEffect
+import React, { useEffect, useState } from 'react';
 import BudgetListForm from './BudgetListForm/BudgetListForm';
 import { SelectChangeEvent } from '@mui/material'
-
 
 function BudgetList() {
     const { budgetList } = useAppSelector(state => state.budget);
@@ -19,6 +20,10 @@ function BudgetList() {
     const [deleteTaskId, setDeleteTaskId] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [selectValue, setSelectValue] = useState('');
+
+    useEffect(() => {
+        dispatch(fetchBudget())
+    }, [dispatch]);
 
     const onDeleteClickHandler = (id: string) => {
         dispatch(showDialog('open'))
