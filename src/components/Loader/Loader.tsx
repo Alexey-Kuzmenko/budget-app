@@ -11,7 +11,7 @@ function Loader({ isOpen }: LoaderProps) {
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={isOpen}
         >
-            <CircularProgress color='primary' />
+            <CircularProgress color='inherit' />
         </Backdrop>
     );
 }
