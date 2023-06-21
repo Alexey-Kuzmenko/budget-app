@@ -12,10 +12,7 @@ function HomePage() {
             <Form />
             <Balance />
             <BudgetList />
-            {
-                isLoad ? <Loader isOpen={false} /> : <Loader isOpen={true} />
-            }
-
+            <Loader isOpen={isLoad} />
         </>
     );
 }

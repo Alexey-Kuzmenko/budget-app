@@ -14,7 +14,7 @@ import BudgetListForm from './BudgetListForm/BudgetListForm';
 import { SelectChangeEvent } from '@mui/material'
 
 function BudgetList() {
-    const { budgetList } = useAppSelector(state => state.budget);
+    const { budgetList, error } = useAppSelector(state => state.budget);
     const { isDialogOpen } = useAppSelector(state => state.dialog)
     const dispatch = useAppDispatch();
     const [deleteTaskId, setDeleteTaskId] = useState('');
@@ -79,7 +79,7 @@ function BudgetList() {
                 />
 
                 {
-                    !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
+                    error ? <Alert severity='error'>Error! Failed to fetch</Alert> : !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
                 }
 
             </Box>
