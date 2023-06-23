@@ -7,13 +7,15 @@ import Logo from '../../assets/budget_app_logo.webp'
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { closeMenu, toggleMenu } from '../../store/navSlice';
 
-const links: Links[] = [{ path: 'home' }, { path: 'about', text: 'about' }]
+const links: Links[] = [{ path: 'home' }, { path: 'currency', text: 'currency' }]
 
 function Header() {
     const dispatch = useAppDispatch()
     const { menuIsOpen } = useAppSelector((state) => state.navigation)
-
     const menuClasses: string[] = [styles.Header__menuBody]
+
+    // ? test solution
+    let isUserLogin: boolean = false
 
     if (menuIsOpen) {
         menuClasses.push(styles.Header__menuBody_open)
@@ -55,7 +57,8 @@ function Header() {
 
                         <nav className={menuClasses.join(' ')}>
                             <div className={styles.Header__menuList}>
-                                {renderLinks()}
+                                {/* TEST SOLUTION */}
+                                {!isUserLogin ? null : renderLinks()}
                             </div>
                         </nav>
 

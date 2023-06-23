@@ -23,7 +23,7 @@ function BudgetList() {
 
     useEffect(() => {
         dispatch(fetchBudget())
-    }, [dispatch]);
+    }, []);
 
     const onDeleteClickHandler = (id: string) => {
         dispatch(showDialog('open'))

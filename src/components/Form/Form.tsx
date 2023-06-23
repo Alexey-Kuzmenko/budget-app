@@ -6,7 +6,6 @@ import { useAppDispatch } from '../../hooks';
 // ! testing addBudgetItems
 import { addBudgetItem, addBudgetItems } from '../../store/budgetSlice';
 
-
 interface FormValues {
     type: BudgetType
     comment: string

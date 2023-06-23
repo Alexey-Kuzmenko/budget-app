@@ -25,7 +25,6 @@ type FormData = Omit<BudgetItem, 'id'>
 export const fetchBudget = createAsyncThunk<BudgetItem[]>(
     'budget/fetchBudget',
     async function () {
-
         const response = await axios.get(`${url}/data.json`)
         const data = response.data
 
