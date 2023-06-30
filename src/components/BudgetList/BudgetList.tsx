@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import styles from './BudgetList.module.scss'
 import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material'
-import { BudgetItem } from '../../budget.types';
+import { BudgetItem } from '../../models/budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 // ! testing fetchBudget
 import { deleteBudgetItem, fetchBudget } from '../../store/budgetSlice';
