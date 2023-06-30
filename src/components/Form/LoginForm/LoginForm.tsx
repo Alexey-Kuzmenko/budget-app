@@ -2,8 +2,10 @@ import styles from './LoginForm.module.scss'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
-// ! testing
 import { useState } from 'react';
+import { useAppDispatch } from '../../../hooks';
+// ! testing
+import { signIn, signUp } from '../../../store/authSlice';
 
 interface FormData {
     email: string
@@ -27,16 +29,17 @@ function LoginForm() {
         mode: 'onBlur'
     })
     const [buttonId, setButtonId] = useState<string>();
+    const dispatch = useAppDispatch()
 
     const onFormSubmitHandler: SubmitHandler<FormData> = (formData): void => {
         const { email, password } = formData
 
         if (buttonId === 'sign-in-btn') {
-            console.log('sign in');
+            dispatch(signIn({ email, password }))
         }
 
         if (buttonId === 'sign-up-btn') {
-            console.log('sign up');
+            dispatch(signUp({ email, password }))
         }
 
         reset()
