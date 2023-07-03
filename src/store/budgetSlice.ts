@@ -1,5 +1,5 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BudgetItem } from "../budget.types";
+import { BudgetItem } from "../models/budget.types";
 import { UUID } from "uuid-generator-ts";
 import axios from "axios"
 import apiConfig from "../api/config";

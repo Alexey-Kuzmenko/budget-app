@@ -2,12 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import budgetReducer from "./budgetSlice";
 import dialogReducer from "./dialogSlice";
 import navReducer from "./navSlice";
+import authReducer from "./authSlice";
+
 
 const store = configureStore({
     reducer: {
         budget: budgetReducer,
         dialog: dialogReducer,
-        navigation: navReducer
+        navigation: navReducer,
+        authentication: authReducer,
     }
 })
 

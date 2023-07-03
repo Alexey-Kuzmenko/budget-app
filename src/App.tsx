@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage';
 // ! test solution
 import LoginPage from './pages/LoginPage';
+import Logout from './components/Logout/Logout';
 
 function App() {
   // ? test solution
@@ -13,6 +14,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<HomePage />} />
+        <Route element={<Logout />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Route>
     </Routes>

@@ -2,6 +2,10 @@ import styles from './LoginForm.module.scss'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useAppDispatch } from '../../../hooks';
+// ! testing
+import { signIn, signUp } from '../../../store/authSlice';
 
 interface FormData {
     email: string
@@ -24,21 +28,25 @@ function LoginForm() {
         },
         mode: 'onBlur'
     })
+    const [buttonId, setButtonId] = useState<string>();
+    const dispatch = useAppDispatch()
 
-    const onSignInHandler: SubmitHandler<FormData> = (formData): void => {
-        // ! debug
-        console.log(formData);
+    const onFormSubmitHandler: SubmitHandler<FormData> = (formData): void => {
+        const { email, password } = formData
+
+        if (buttonId === 'sign-in-btn') {
+            dispatch(signIn({ email, password }))
+        }
+
+        if (buttonId === 'sign-up-btn') {
+            dispatch(signUp({ email, password }))
+        }
+
         reset()
     }
 
-    // const onSignUpHandler: SubmitHandler<FormData> = (formData): void => {
-    //     // ! debug
-    //     console.log(formData);
-    //     reset()
-    // }
-
     return (
-        <form className={styles.LoginForm} onSubmit={handleSubmit(onSignInHandler)}>
+        <form className={styles.LoginForm} onSubmit={handleSubmit(onFormSubmitHandler)}>
             <Typography className={styles.LoginForm__title} mb={3} textTransform='uppercase' variant='h4' component='h1'>Login</Typography>
 
             <div className={styles.LoginForm__innerFlexContainer}>
@@ -64,8 +72,8 @@ function LoginForm() {
             </div>
 
             <div className={styles.LoginForm__controls}>
-                <Button type='submit' variant="outlined" color='success' size='medium' disabled={!isValid}>Sign in</Button>
-                <Button type='submit' variant="outlined" color='primary' size='medium' disabled={!isValid}>Sign up</Button>
+                <Button id='sign-in-btn' type='submit' variant="outlined" color='success' size='medium' disabled={!isValid} onClick={() => { setButtonId('sign-in-btn') }}>Sign in</Button>
+                <Button id='sign-up-btn' type='submit' variant="outlined" color='primary' size='medium' disabled={!isValid} onClick={() => { setButtonId('sign-up-btn') }}>Sign up</Button>
             </div>
         </form>
     );
