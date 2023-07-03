@@ -2,7 +2,6 @@ interface ApiConfig {
     url: string
     authApi?: string
     apiKey?: string
-
 }
 
 const apiConfig: ApiConfig = {
