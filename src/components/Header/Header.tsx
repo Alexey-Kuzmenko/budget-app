@@ -6,16 +6,15 @@ import MenuToggle from './MenuToggle/MenuToggle';
 import Logo from '../../assets/budget_app_logo.webp'
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { closeMenu, toggleMenu } from '../../store/navSlice';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const links: Links[] = [{ path: 'home' }, { path: 'currency', text: 'currency' }]
 
 function Header() {
     const dispatch = useAppDispatch()
     const { menuIsOpen } = useAppSelector((state) => state.navigation)
+    const { token } = useAppSelector((state) => state.authentication)
     const menuClasses: string[] = [styles.Header__menuBody]
-
-    // ? test solution
-    let isUserLogin: boolean = false
 
     if (menuIsOpen) {
         menuClasses.push(styles.Header__menuBody_open)
@@ -39,9 +38,17 @@ function Header() {
             >
                 {text ? text : path}
             </NavLink>
-
         })
     }
+
+    const headerLinks = (
+        <>
+            {renderLinks()}
+            <NavLink to='logout' replace className={styles.Header__logoutBtn} onClick={onMenuLinkClickHandler}>
+                <LogoutIcon className={styles.Header__logoutBtnIcon} />
+            </NavLink>
+        </>
+    )
 
     return (
         <header className={styles.Header}>
@@ -52,13 +59,12 @@ function Header() {
                     <img src={Logo} alt="Logo" className={styles.Header__logo} />
 
                     <div className={styles.Header__menu}>
-
-                        <MenuToggle onClickHandler={onMenuToggleClickHandler} />
-
+                        {
+                            !token ? null : <MenuToggle onClickHandler={onMenuToggleClickHandler} />
+                        }
                         <nav className={menuClasses.join(' ')}>
                             <div className={styles.Header__menuList}>
-                                {/* TEST SOLUTION */}
-                                {!isUserLogin ? null : renderLinks()}
+                                {!token ? null : headerLinks}
                             </div>
                         </nav>
 

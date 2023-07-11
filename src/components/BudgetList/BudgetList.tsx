@@ -4,14 +4,14 @@ import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material'
 import { BudgetItem } from '../../models/budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-// ! testing fetchBudget
-import { deleteBudgetItem, fetchBudget } from '../../store/budgetSlice';
+import { deleteBudgetItem } from '../../store/budgetSlice';
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
-// ! added useEffect
 import React, { useEffect, useState } from 'react';
 import BudgetListForm from './BudgetListForm/BudgetListForm';
 import { SelectChangeEvent } from '@mui/material'
+import { autoLogout } from '../../store/authSlice';
+
 
 function BudgetList() {
     const { budgetList, error } = useAppSelector(state => state.budget);
@@ -22,7 +22,7 @@ function BudgetList() {
     const [selectValue, setSelectValue] = useState('');
 
     useEffect(() => {
-        dispatch(fetchBudget())
+        dispatch(autoLogout())
     }, []);
 
     const onDeleteClickHandler = (id: string) => {

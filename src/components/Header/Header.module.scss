@@ -16,8 +16,18 @@
         width: 100px;
     }
 
+    &__menu {
+        width: 100%;
+    }
+
     &__menuBody {
         margin-left: 10px;
+    }
+
+    &__menuList {
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
 
     &__menuLink {
@@ -36,7 +46,17 @@
         }
     }
 
+    &__logoutBtn {
+        margin-left: calc(100% - 200px);
+    }
+
+    &__logoutBtnIcon {
+        color: vars.$white;
+        margin: 0;
+    }
+
     @media (max-width: vars.$tablet-s) {
+
         &__innerFlexContainer {
             flex-direction: row-reverse;
             justify-content: space-between;
@@ -47,8 +67,6 @@
             left: -100%;
             top: 0;
             overflow: auto;
-            // ! testing
-            z-index: 3000 !important;
             margin: 0;
 
             background-color: vars.$white;
@@ -63,7 +81,6 @@
         }
 
         &__menuList {
-            display: flex;
             flex-flow: column nowrap;
             align-items: flex-start;
 
@@ -73,6 +90,14 @@
         &__menuLink {
             color: vars.$indigo-800;
             font-size: 2rem;
+        }
+
+        &__logoutBtn {
+            margin: 10px;
+        }
+
+        &__logoutBtnIcon {
+            color: vars.$indigo-800;
         }
 
     }
