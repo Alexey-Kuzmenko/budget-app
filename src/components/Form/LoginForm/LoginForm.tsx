@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
-// ! testing
 import { signIn, signUp } from '../../../store/authSlice';
 
 interface FormData {
