@@ -3,8 +3,9 @@ import apiConfig from "../api/config";
 import axios from "axios";
 import { AppDispatch } from ".";
 import { RootState } from ".";
+import { fetchBudget, resetState } from "./budgetSlice";
 
-const { apiKey, authApi } = apiConfig
+const { url, apiKey, authApi } = apiConfig
 
 interface AuthSate {
     token: string | null
@@ -16,6 +17,7 @@ interface ApiResponse {
     idToken: string
     expiresIn: string
     localId: string
+    email: string
 }
 
 interface AuthData {
@@ -29,6 +31,28 @@ const initialState: AuthSate = {
     error: null,
 }
 
+// * be attention with this type {name: string}
+const createUserData = createAsyncThunk<{ name: string }, ApiResponse, { rejectValue: string }>(
+    'auth/createUserData',
+    async ({ localId, email }, { rejectWithValue }) => {
+
+        const userData = {
+            email,
+            localId,
+            budgetList: []
+        }
+
+        const response = await axios.post(`${url}/data.json`, userData)
+        const data = await response.data
+
+        if (response.status !== 200) {
+            return rejectWithValue(response.statusText)
+        }
+
+        return data
+    }
+)
+
 export const signIn = createAsyncThunk<ApiResponse, AuthData, { dispatch: AppDispatch, rejectValue: string }>(
     'auth/signIn',
     async (userData, { dispatch, rejectWithValue }) => {
@@ -39,6 +63,7 @@ export const signIn = createAsyncThunk<ApiResponse, AuthData, { dispatch: AppDis
             return rejectWithValue(response.statusText)
         }
 
+        dispatch(fetchBudget())
         dispatch(saveSession(data))
         return data
     }
@@ -54,6 +79,7 @@ export const signUp = createAsyncThunk<ApiResponse, AuthData, { dispatch: AppDis
             return rejectWithValue(response.statusText)
         }
 
+        dispatch(createUserData(data))
         dispatch(saveSession(data))
         return data
     }
@@ -68,6 +94,7 @@ export const autoLogout = createAsyncThunk<void, undefined, { dispatch: AppDispa
             try {
                 setTimeout(() => {
                     dispatch(closeSession())
+                    dispatch(resetState())
                 }, +time * 1_000)
             } catch (error) {
                 return rejectWithValue(`${error}`)
@@ -83,19 +110,20 @@ export const keepSession = createAsyncThunk<void, undefined, { dispatch: AppDisp
             const idToken = localStorage.getItem("token")
             const localId = localStorage.getItem("userId")
             const expiration = localStorage.getItem("expiration")
+            const email = localStorage.getItem("email")
 
             if (!idToken && !localId && !expiration) {
                 dispatch(closeSession())
             } else {
-                if (idToken && localId && expiration) {
+                if (idToken && localId && expiration && email) {
                     const expirationDate = new Date(expiration)
 
                     if (expirationDate <= new Date()) {
                         dispatch(closeSession())
                     } else {
-                        //  TODO: fix bug with expires in value
-                        dispatch(saveSession({ idToken, localId, expiresIn: String(3600) }))
+                        dispatch(saveSession({ idToken, localId, expiresIn: String(3600), email }))
                         dispatch(autoLogout())
+                        dispatch(fetchBudget())
                     }
                 }
 
@@ -116,6 +144,7 @@ const authSlice = createSlice({
             localStorage.setItem("token", action.payload.idToken)
             localStorage.setItem("userId", action.payload.localId)
             localStorage.setItem("expiration", String(expirationDate))
+            localStorage.setItem("email", action.payload.email)
 
             state.token = action.payload.idToken
             state.expiration = action.payload.expiresIn
@@ -124,6 +153,7 @@ const authSlice = createSlice({
             localStorage.removeItem("token")
             localStorage.removeItem("userId")
             localStorage.removeItem("expiration")
+            localStorage.removeItem("email")
 
             state.token = null
             state.expiration = null
@@ -136,6 +166,10 @@ const authSlice = createSlice({
             })
             .addCase(signUp.pending, (state) => {
                 state.error = null
+            })
+            .addCase(createUserData.fulfilled, (state, action) => {
+                // ! debug
+                console.log(action.payload);
             })
             .addCase(signIn.fulfilled, (state, action) => {
                 // ! debug

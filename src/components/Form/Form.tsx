@@ -3,7 +3,6 @@ import { TextField, FormControl, Select, InputLabel, MenuItem, Button, FormHelpe
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { BudgetType } from '../../models/budget.types';
 import { useAppDispatch } from '../../hooks';
-// ! testing addBudgetItems
 import { addBudgetItems } from '../../store/budgetSlice';
 
 interface FormValues {
@@ -36,7 +35,6 @@ function Form() {
 
     const onFormSubmitHandler: SubmitHandler<FormValues> = (formData): void => {
         formData.value = +formData.value
-        // ! testing
         dispatch(addBudgetItems(formData))
         reset()
     }

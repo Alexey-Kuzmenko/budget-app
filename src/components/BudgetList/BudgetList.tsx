@@ -4,7 +4,8 @@ import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material'
 import { BudgetItem } from '../../models/budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { deleteBudgetItem } from '../../store/budgetSlice';
+// ! testing deleteBudgetItems
+import { deleteBudgetItems } from '../../store/budgetSlice';
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
 import React, { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ function BudgetList() {
     const { budgetList, error } = useAppSelector(state => state.budget);
     const { isDialogOpen } = useAppSelector(state => state.dialog)
     const dispatch = useAppDispatch();
-    const [deleteTaskId, setDeleteTaskId] = useState('');
+    const [deleteItemId, setDeleteItemId] = useState<{ hash: string, id: string }>({ hash: '', id: '' });
     const [inputValue, setInputValue] = useState('');
     const [selectValue, setSelectValue] = useState('');
 
@@ -25,13 +26,14 @@ function BudgetList() {
         dispatch(autoLogout())
     }, []);
 
-    const onDeleteClickHandler = (id: string) => {
+    const onDeleteClickHandler = (itemId: { hash: string, id: string }) => {
         dispatch(showDialog('open'))
-        setDeleteTaskId(id)
+        setDeleteItemId(itemId)
     }
 
     const onAcceptClickHandler = () => {
-        dispatch(deleteBudgetItem(deleteTaskId))
+        // ! testing
+        dispatch(deleteBudgetItems(deleteItemId))
         dispatch(showDialog('hidden'))
     }
 
@@ -52,14 +54,14 @@ function BudgetList() {
     const renderListItems = (): JSX.Element[] => {
         return budgetList.filter((item: BudgetItem) => {
             return inputValue === '' ? item : item.comment.includes(inputValue)
-        }).map(({ id, type, value, comment }: BudgetItem) => {
+        }).map(({ hash, id, type, value, comment }: BudgetItem) => {
             return (
                 <BudgetListItem
                     key={id}
                     type={type}
                     value={value}
                     comment={comment}
-                    onClickHandler={() => onDeleteClickHandler(id)}
+                    onClickHandler={() => onDeleteClickHandler({ hash: hash ? hash : '', id })}
                 />
             )
         })
