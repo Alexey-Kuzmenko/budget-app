@@ -61,12 +61,13 @@ export const addBudgetItems = createAsyncThunk<void, FormData, { state: RootStat
         }
 
         const response = await axios.post(`${url}/data/${dataHash}/budgetList.json`, budgetItem)
+        const { name } = await response.data
 
         if (response.statusText !== 'OK') {
             return Promise.reject()
         }
 
-        dispatch(addBudgetItem(budgetItem))
+        dispatch(addBudgetItem({ hash: name, ...budgetItem }))
 
     }
 )
