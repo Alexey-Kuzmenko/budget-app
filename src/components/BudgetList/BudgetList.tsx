@@ -2,19 +2,28 @@ import Box from '@mui/material/Box';
 import styles from './BudgetList.module.scss'
 import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material'
-import { BudgetItem } from '../../budget.types';
+import { BudgetItem } from '../../models/budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { deleteBudgetItem } from '../../store/budgetSlice';
-// ? proposal
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import BudgetListForm from './BudgetListForm/BudgetListForm';
+import { SelectChangeEvent } from '@mui/material'
+import { autoLogout } from '../../store/authSlice';
+
 
 function BudgetList() {
-    const { budgetList } = useAppSelector(state => state.budget);
+    const { budgetList, error } = useAppSelector(state => state.budget);
     const { isDialogOpen } = useAppSelector(state => state.dialog)
     const dispatch = useAppDispatch();
     const [deleteTaskId, setDeleteTaskId] = useState('');
+    const [inputValue, setInputValue] = useState('');
+    const [selectValue, setSelectValue] = useState('');
+
+    useEffect(() => {
+        dispatch(autoLogout())
+    }, []);
 
     const onDeleteClickHandler = (id: string) => {
         dispatch(showDialog('open'))
@@ -26,8 +35,24 @@ function BudgetList() {
         dispatch(showDialog('hidden'))
     }
 
+
+    const onInputChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
+        const value: string = e.currentTarget.value
+        setInputValue(value);
+    }
+
+    // ? potential solution
+    const onSelectChangeHandler = (e: SelectChangeEvent) => {
+        const value: string = e.target.value
+        // ! debug
+        console.log(value);
+        setSelectValue(value)
+    }
+
     const renderListItems = (): JSX.Element[] => {
-        return budgetList.map(({ id, type, value, comment }: BudgetItem) => {
+        return budgetList.filter((item: BudgetItem) => {
+            return inputValue === '' ? item : item.comment.includes(inputValue)
+        }).map(({ id, type, value, comment }: BudgetItem) => {
             return (
                 <BudgetListItem
                     key={id}
@@ -43,10 +68,20 @@ function BudgetList() {
     return (
         <>
             <Box className={styles.BudgetList}>
+
                 <Typography variant="h4" component="h1" align='justify' textTransform='uppercase'>Budget List:</Typography>
+
+                <BudgetListForm
+                    inputValue={inputValue}
+                    selectValue={selectValue}
+                    inputChangeHandler={onInputChangeHandler}
+                    selectChangeHandler={onSelectChangeHandler}
+                />
+
                 {
-                    !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
+                    error ? <Alert severity='error'>Error! Failed to fetch</Alert> : !budgetList.length ? <Alert severity="info">Your budget is empty</Alert> : renderListItems()
                 }
+
             </Box>
 
             {

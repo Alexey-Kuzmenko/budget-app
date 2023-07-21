@@ -2,13 +2,14 @@ import { MouseEventHandler } from 'react';
 import styles from './MenuToggle.module.scss'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { useAppSelector } from '../../../hooks';
 
 interface MenuToggleProps {
-    menuIsOpen: boolean
     onClickHandler: MouseEventHandler
 }
 
-function MenuToggle({ menuIsOpen, onClickHandler }: MenuToggleProps) {
+function MenuToggle({ onClickHandler }: MenuToggleProps) {
+    const { menuIsOpen } = useAppSelector((state) => state.navigation)
 
     return (
         <div onClick={onClickHandler}>

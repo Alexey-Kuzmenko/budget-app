@@ -1,9 +1,10 @@
 import styles from './Form.module.scss'
 import { TextField, FormControl, Select, InputLabel, MenuItem, Button, FormHelperText } from '@mui/material';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { BudgetType } from '../../budget.types';
+import { BudgetType } from '../../models/budget.types';
 import { useAppDispatch } from '../../hooks';
-import { addBudgetItem } from '../../store/budgetSlice';
+// ! testing addBudgetItems
+import { addBudgetItems } from '../../store/budgetSlice';
 
 interface FormValues {
     type: BudgetType
@@ -34,10 +35,9 @@ function Form() {
     )
 
     const onFormSubmitHandler: SubmitHandler<FormValues> = (formData): void => {
-        // ? test solution
         formData.value = +formData.value
-
-        dispatch(addBudgetItem(formData))
+        // ! testing
+        dispatch(addBudgetItems(formData))
         reset()
     }
 
@@ -88,7 +88,6 @@ function Form() {
                     <Button variant="outlined" color="error" size='medium' onClick={onFormResetHandler}>
                         Clear
                     </Button>
-
                 </div>
 
             </div>
