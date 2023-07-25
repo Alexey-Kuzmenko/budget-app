@@ -5,11 +5,11 @@ import { Navigate } from 'react-router-dom';
 import { resetState } from '../../store/budgetSlice';
 
 function Logout() {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(closeSession())
-        dispatch(resetState())
+        dispatch(closeSession());
+        dispatch(resetState());
     }, []);
 
     return (

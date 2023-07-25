@@ -1,10 +1,10 @@
-import styles from './BudgetListItem.module.scss'
+import styles from './BudgetListItem.module.scss';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { Divider, Typography } from '@mui/material';
-import { BudgetItem } from '../../../models/budget.types'
+import { BudgetItem } from '../../../models/budget.types';
 
 interface BudgetItemProps extends Omit<BudgetItem, 'id'> {
     onClickHandler: React.MouseEventHandler

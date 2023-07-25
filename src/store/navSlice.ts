@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 interface navState {
     menuIsOpen: boolean
@@ -6,21 +6,21 @@ interface navState {
 
 const initialState: navState = {
     menuIsOpen: false
-}
+};
 
 const navSlice = createSlice({
     name: 'navigation',
     initialState,
     reducers: {
         closeMenu: (state) => {
-            state.menuIsOpen = false
+            state.menuIsOpen = false;
         },
         toggleMenu: (state) => {
-            state.menuIsOpen = !state.menuIsOpen
+            state.menuIsOpen = !state.menuIsOpen;
         }
     }
-})
+});
 
-export const { closeMenu, toggleMenu } = navSlice.actions
+export const { closeMenu, toggleMenu } = navSlice.actions;
 
-export default navSlice.reducer
+export default navSlice.reducer;

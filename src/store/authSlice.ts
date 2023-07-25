@@ -1,11 +1,11 @@
-import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import apiConfig from "../api/config";
-import axios from "axios";
-import { AppDispatch } from ".";
-import { RootState } from ".";
-import { fetchBudget, resetState } from "./budgetSlice";
+import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import apiConfig from '../api/config';
+import axios from 'axios';
+import { AppDispatch } from '.';
+import { RootState } from '.';
+import { fetchBudget, resetState } from './budgetSlice';
 
-const { url, apiKey, authApi } = apiConfig
+const { url, apiKey, authApi } = apiConfig;
 
 interface AuthSate {
     token: string | null
@@ -29,7 +29,7 @@ const initialState: AuthSate = {
     token: null,
     expiration: null,
     error: null,
-}
+};
 
 // * be attention with this type {name: string}
 const createUserData = createAsyncThunk<{ name: string }, ApiResponse, { rejectValue: string }>(
@@ -40,132 +40,132 @@ const createUserData = createAsyncThunk<{ name: string }, ApiResponse, { rejectV
             email,
             localId,
             budgetList: []
-        }
+        };
 
-        const response = await axios.post(`${url}/data.json`, userData)
-        const data = await response.data
+        const response = await axios.post(`${url}/data.json`, userData);
+        const data = await response.data;
 
         if (response.status !== 200) {
-            return rejectWithValue(response.statusText)
+            return rejectWithValue(response.statusText);
         }
 
-        return data
+        return data;
     }
-)
+);
 
 export const signIn = createAsyncThunk<ApiResponse, AuthData, { dispatch: AppDispatch, rejectValue: string }>(
     'auth/signIn',
     async (userData, { dispatch, rejectWithValue }) => {
-        const response = await axios.post(`${authApi}:signInWithPassword?key=${apiKey}`, { ...userData, returnSecureToken: true })
-        const data = await response.data
+        const response = await axios.post(`${authApi}:signInWithPassword?key=${apiKey}`, { ...userData, returnSecureToken: true });
+        const data = await response.data;
 
         if (response.status !== 200) {
-            return rejectWithValue(response.statusText)
+            return rejectWithValue(response.statusText);
         }
 
-        dispatch(fetchBudget())
-        dispatch(saveSession(data))
-        return data
+        dispatch(fetchBudget());
+        dispatch(saveSession(data));
+        return data;
     }
-)
+);
 
 export const signUp = createAsyncThunk<ApiResponse, AuthData, { dispatch: AppDispatch, rejectValue: string }>(
     'auth/signUp',
     async (userData, { dispatch, rejectWithValue }) => {
-        const response = await axios.post(`${authApi}:signUp?key=${apiKey}`, { ...userData, returnSecureToken: true })
-        const data = await response.data
+        const response = await axios.post(`${authApi}:signUp?key=${apiKey}`, { ...userData, returnSecureToken: true });
+        const data = await response.data;
 
         if (response.status !== 200) {
-            return rejectWithValue(response.statusText)
+            return rejectWithValue(response.statusText);
         }
 
-        dispatch(createUserData(data))
-        dispatch(saveSession(data))
-        return data
+        dispatch(createUserData(data));
+        dispatch(saveSession(data));
+        return data;
     }
-)
+);
 
 export const autoLogout = createAsyncThunk<void, undefined, { dispatch: AppDispatch, state: RootState, rejectValue: string }>(
-    "logoutSlice/autoLogout",
+    'logoutSlice/autoLogout',
     async (_, { dispatch, rejectWithValue, getState }) => {
-        const time = getState().authentication.expiration
+        const time = getState().authentication.expiration;
 
         if (time !== null) {
             try {
                 setTimeout(() => {
-                    dispatch(closeSession())
-                    dispatch(resetState())
-                }, +time * 1_000)
+                    dispatch(closeSession());
+                    dispatch(resetState());
+                }, +time * 1_000);
             } catch (error) {
-                return rejectWithValue(`${error}`)
+                return rejectWithValue(`${error}`);
             }
         }
     }
-)
+);
 
 export const keepSession = createAsyncThunk<void, undefined, { dispatch: AppDispatch, rejectValue: string }>(
     'auth/keepSession',
     async (_, { dispatch, rejectWithValue }) => {
         try {
-            const idToken = localStorage.getItem("token")
-            const localId = localStorage.getItem("userId")
-            const expiration = localStorage.getItem("expiration")
-            const email = localStorage.getItem("email")
+            const idToken = localStorage.getItem('token');
+            const localId = localStorage.getItem('userId');
+            const expiration = localStorage.getItem('expiration');
+            const email = localStorage.getItem('email');
 
             if (!idToken && !localId && !expiration) {
-                dispatch(closeSession())
+                dispatch(closeSession());
             } else {
                 if (idToken && localId && expiration && email) {
-                    const expirationDate = new Date(expiration)
+                    const expirationDate = new Date(expiration);
 
                     if (expirationDate <= new Date()) {
-                        dispatch(closeSession())
+                        dispatch(closeSession());
                     } else {
-                        dispatch(saveSession({ idToken, localId, expiresIn: String(3600), email }))
-                        dispatch(autoLogout())
-                        dispatch(fetchBudget())
+                        dispatch(saveSession({ idToken, localId, expiresIn: String(3600), email }));
+                        dispatch(autoLogout());
+                        dispatch(fetchBudget());
                     }
                 }
 
             }
         } catch (error) {
-            return rejectWithValue(error as string)
+            return rejectWithValue(error as string);
         }
     }
-)
+);
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         saveSession: (state, action: PayloadAction<ApiResponse>) => {
-            const expirationDate = new Date(new Date().getTime() + Number(action.payload.expiresIn) * 1_000)
+            const expirationDate = new Date(new Date().getTime() + Number(action.payload.expiresIn) * 1_000);
 
-            localStorage.setItem("token", action.payload.idToken)
-            localStorage.setItem("userId", action.payload.localId)
-            localStorage.setItem("expiration", String(expirationDate))
-            localStorage.setItem("email", action.payload.email)
+            localStorage.setItem('token', action.payload.idToken);
+            localStorage.setItem('userId', action.payload.localId);
+            localStorage.setItem('expiration', String(expirationDate));
+            localStorage.setItem('email', action.payload.email);
 
-            state.token = action.payload.idToken
-            state.expiration = action.payload.expiresIn
+            state.token = action.payload.idToken;
+            state.expiration = action.payload.expiresIn;
         },
         closeSession: (state) => {
-            localStorage.removeItem("token")
-            localStorage.removeItem("userId")
-            localStorage.removeItem("expiration")
-            localStorage.removeItem("email")
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('expiration');
+            localStorage.removeItem('email');
 
-            state.token = null
-            state.expiration = null
+            state.token = null;
+            state.expiration = null;
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(signIn.pending, (state) => {
-                state.error = null
+                state.error = null;
             })
             .addCase(signUp.pending, (state) => {
-                state.error = null
+                state.error = null;
             })
             .addCase(createUserData.fulfilled, (state, action) => {
                 // ! debug
@@ -187,15 +187,15 @@ const authSlice = createSlice({
                 console.error(action.payload);
             })
             .addMatcher(isError, (state, action: PayloadAction<string>) => {
-                state.error = action.payload
-            })
+                state.error = action.payload;
+            });
     },
-})
+});
 
 function isError(action: AnyAction) {
-    return action.type.endsWith('rejected')
+    return action.type.endsWith('rejected');
 }
 
-export const { saveSession, closeSession } = authSlice.actions
+export const { saveSession, closeSession } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

@@ -1,14 +1,16 @@
 @use './variables' as vars;
 
 %box-style {
-    margin: 0 auto;
-    max-width: 550px;
-    padding: 20px 15px;
-    margin-bottom: 50px;
-
     display: flex;
 
-    background-color: vars.$white;
-    border-radius: vars.$border-radius;
+    max-width: 550px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    padding: 20px 15px;
+
     text-align: justify;
+
+    border-radius: vars.$border-radius;
+
+    background-color: vars.$white;
 }

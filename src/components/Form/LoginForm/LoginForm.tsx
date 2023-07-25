@@ -1,4 +1,4 @@
-import styles from './LoginForm.module.scss'
+import styles from './LoginForm.module.scss';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
@@ -26,23 +26,23 @@ function LoginForm() {
             password: ''
         },
         mode: 'onBlur'
-    })
+    });
     const [buttonId, setButtonId] = useState<string>();
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const onFormSubmitHandler: SubmitHandler<FormData> = (formData): void => {
-        const { email, password } = formData
+        const { email, password } = formData;
 
         if (buttonId === 'sign-in-btn') {
-            dispatch(signIn({ email, password }))
+            dispatch(signIn({ email, password }));
         }
 
         if (buttonId === 'sign-up-btn') {
-            dispatch(signUp({ email, password }))
+            dispatch(signUp({ email, password }));
         }
 
-        reset()
-    }
+        reset();
+    };
 
     return (
         <form className={styles.LoginForm} onSubmit={handleSubmit(onFormSubmitHandler)}>
@@ -71,8 +71,8 @@ function LoginForm() {
             </div>
 
             <div className={styles.LoginForm__controls}>
-                <Button id='sign-in-btn' type='submit' variant="outlined" color='success' size='medium' disabled={!isValid} onClick={() => { setButtonId('sign-in-btn') }}>Sign in</Button>
-                <Button id='sign-up-btn' type='submit' variant="outlined" color='primary' size='medium' disabled={!isValid} onClick={() => { setButtonId('sign-up-btn') }}>Sign up</Button>
+                <Button id='sign-in-btn' type='submit' variant="outlined" color='success' size='medium' disabled={!isValid} onClick={() => { setButtonId('sign-in-btn'); }}>Sign in</Button>
+                <Button id='sign-up-btn' type='submit' variant="outlined" color='primary' size='medium' disabled={!isValid} onClick={() => { setButtonId('sign-up-btn'); }}>Sign up</Button>
             </div>
         </form>
     );

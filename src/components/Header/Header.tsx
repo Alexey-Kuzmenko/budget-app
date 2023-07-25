@@ -1,32 +1,32 @@
-import styles from './Header.module.scss'
+import styles from './Header.module.scss';
 import Container from '../../containers/Container/Container';
-import Links from './links.type'
-import { NavLink } from 'react-router-dom'
+import Links from './links.type';
+import { NavLink } from 'react-router-dom';
 import MenuToggle from './MenuToggle/MenuToggle';
-import Logo from '../../assets/budget_app_logo.webp'
+import Logo from '../../assets/budget_app_logo.webp';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { closeMenu, toggleMenu } from '../../store/navSlice';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const links: Links[] = [{ path: 'home' }, { path: 'currency', text: 'currency' }]
+const links: Links[] = [{ path: 'home' }, { path: 'currency', text: 'currency' }];
 
 function Header() {
-    const dispatch = useAppDispatch()
-    const { menuIsOpen } = useAppSelector((state) => state.navigation)
-    const { token } = useAppSelector((state) => state.authentication)
-    const menuClasses: string[] = [styles.Header__menuBody]
+    const dispatch = useAppDispatch();
+    const { menuIsOpen } = useAppSelector((state) => state.navigation);
+    const { token } = useAppSelector((state) => state.authentication);
+    const menuClasses: string[] = [styles.Header__menuBody];
 
     if (menuIsOpen) {
-        menuClasses.push(styles.Header__menuBody_open)
+        menuClasses.push(styles.Header__menuBody_open);
     }
 
     const onMenuLinkClickHandler = () => {
-        dispatch(closeMenu())
-    }
+        dispatch(closeMenu());
+    };
 
     const onMenuToggleClickHandler = () => {
-        dispatch(toggleMenu())
-    }
+        dispatch(toggleMenu());
+    };
 
     const renderLinks = (): JSX.Element[] => {
         return links.map(({ path, text }: Links, i) => {
@@ -37,9 +37,9 @@ function Header() {
                 onClick={onMenuLinkClickHandler}
             >
                 {text ? text : path}
-            </NavLink>
-        })
-    }
+            </NavLink>;
+        });
+    };
 
     const headerLinks = (
         <>
@@ -48,7 +48,7 @@ function Header() {
                 <LogoutIcon className={styles.Header__logoutBtnIcon} />
             </NavLink>
         </>
-    )
+    );
 
     return (
         <header className={styles.Header}>

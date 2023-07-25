@@ -1,4 +1,4 @@
-import styles from './Container.module.scss'
+import styles from './Container.module.scss';
 
 interface ContainerProps {
     children?: JSX.Element[] | JSX.Element

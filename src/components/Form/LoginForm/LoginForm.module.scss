@@ -2,8 +2,6 @@
 @use '../../../scss/utilities/variables' as vars;
 
 .LoginForm {
-    @extend .Form;
-
     &__title {
         color: vars.$indigo-800
     }
@@ -13,7 +11,10 @@
     }
 
     &__controls {
-        @extend .Form__controls;
         margin-top: 25px;
+
+        @extend .Form__controls;
     }
+
+    @extend .Form;
 }

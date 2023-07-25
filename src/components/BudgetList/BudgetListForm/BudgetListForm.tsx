@@ -1,9 +1,9 @@
-import styles from "./BudgetListForm.module.scss"
-import Box from "@mui/material/Box"
-import { TextField, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent, Typography } from '@mui/material'
+import styles from './BudgetListForm.module.scss';
+import Box from '@mui/material/Box';
+import { TextField, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { ReactNode, useState } from "react"
+import { ReactNode, useState } from 'react';
 
 interface BudgetListFormProps {
     inputValue: string
@@ -16,8 +16,8 @@ function BudgetListForm({ inputValue, selectValue, inputChangeHandler, selectCha
     const [showForm, setShowForm] = useState(false);
 
     const onToggleClickHandler = () => {
-        setShowForm((prevState) => !prevState)
-    }
+        setShowForm((prevState) => !prevState);
+    };
 
     return (
         <Box sx={{ maxWidth: '550px', width: '100%', margin: '0 auto' }}>

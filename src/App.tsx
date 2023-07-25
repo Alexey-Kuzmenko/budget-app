@@ -1,6 +1,6 @@
 import './App.css';
 import Layout from './containers/Layout/Layout';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Logout from './components/Logout/Logout';
@@ -10,11 +10,11 @@ import { useEffect } from 'react';
 
 
 function App() {
-  const token = useAppSelector((state) => state.authentication.token)
-  const dispatch = useAppDispatch()
+  const token = useAppSelector((state) => state.authentication.token);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(keepSession())
+    dispatch(keepSession());
   }, []);
 
   let routes: JSX.Element = (
@@ -26,7 +26,7 @@ function App() {
         <Route path='*' element={<h1>Page not found</h1>} />
       </Route>
     </Routes>
-  )
+  );
 
   if (!token) {
     routes = (
@@ -35,7 +35,7 @@ function App() {
           <Route index element={<LoginPage />} />
         </Route>
       </Routes>
-    )
+    );
   }
 
   return (

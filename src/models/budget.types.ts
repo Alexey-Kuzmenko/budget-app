@@ -1,4 +1,4 @@
-export type BudgetType = 'income' | 'outcome'
+export type BudgetType = 'income' | 'outcome';
 
 export interface BudgetItem {
     id: string

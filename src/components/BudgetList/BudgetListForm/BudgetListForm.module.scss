@@ -2,8 +2,9 @@
 @use '../../../scss/utilities/variables' as vars;
 
 .BudgetListForm {
-    @extend %box-style;
     justify-content: space-between;
+
+    @extend %box-style;
 
     @media (max-width: vars.$mobile-m) {
         flex-wrap: wrap;

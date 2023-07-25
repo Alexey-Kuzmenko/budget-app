@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface DialogState {
     isDialogOpen: boolean
@@ -6,9 +6,9 @@ interface DialogState {
 
 const initialState: DialogState = {
     isDialogOpen: false
-}
+};
 
-type DialogAction = 'open' | 'hidden'
+type DialogAction = 'open' | 'hidden';
 
 const dialogSlice = createSlice({
     name: 'dialog',
@@ -17,15 +17,15 @@ const dialogSlice = createSlice({
         showDialog: (state, { payload }: PayloadAction<DialogAction>) => {
 
             if (payload === 'open') {
-                state.isDialogOpen = true
+                state.isDialogOpen = true;
             } else {
-                state.isDialogOpen = false
+                state.isDialogOpen = false;
             }
 
         },
     }
-})
+});
 
-export const { showDialog } = dialogSlice.actions
+export const { showDialog } = dialogSlice.actions;
 
-export default dialogSlice.reducer
+export default dialogSlice.reducer;

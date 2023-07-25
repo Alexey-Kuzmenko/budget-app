@@ -1,11 +1,12 @@
 @use '../../scss/utilities/variables' as vars;
 
 .Form {
-    margin: 0 auto 50px auto;
-    padding: 30px 15px 20px 15px;
     max-width: 550px;
-    background-color: vars.$white;
+    margin: 0 auto 50px;
+    padding: 30px 15px 20px;
+
     border-radius: vars.$border-radius;
+    background-color: vars.$white;
 
     &__innerFlexContainer {
         display: flex;
@@ -16,7 +17,7 @@
     &__controls {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         flex-wrap: wrap;
+        justify-content: space-between;
     }
 }
