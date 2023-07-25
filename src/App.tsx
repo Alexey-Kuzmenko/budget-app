@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Layout from './containers/Layout/Layout';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import Logout from './components/Logout/Logout';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { keepSession } from './store/authSlice';
+import { useEffect } from 'react';
+
 
 function App() {
+  const token = useAppSelector((state) => state.authentication.token);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(keepSession());
+  }, []);
+
+  let routes: JSX.Element = (
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path='home' element={<HomePage />} />
+        <Route path='logout' element={<Logout />} />
+        <Route path='*' element={<h1>Page not found</h1>} />
+      </Route>
+    </Routes>
+  );
+
+  if (!token) {
+    routes = (
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<LoginPage />} />
+        </Route>
+      </Routes>
+    );
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {routes}
     </div>
   );
 }

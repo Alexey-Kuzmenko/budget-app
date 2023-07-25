@@ -1,0 +1,23 @@
+@use '../../scss/utilities/variables' as vars;
+
+.Form {
+    max-width: 550px;
+    margin: 0 auto 50px;
+    padding: 30px 15px 20px;
+
+    border-radius: vars.$border-radius;
+    background-color: vars.$white;
+
+    &__innerFlexContainer {
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: 20px;
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}

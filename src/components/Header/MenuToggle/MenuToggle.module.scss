@@ -1,0 +1,21 @@
+@use '../../../scss/utilities/variables' as vars;
+
+.MenuToggle {
+    z-index: 3001;
+
+    display: none !important;
+
+    cursor: pointer;
+
+    color: vars.$white;
+
+    @media (max-width: vars.$tablet-s) {
+        display: block !important;
+
+        &_open {
+            position: relative;
+
+            color: vars.$indigo-800;
+        }
+    }
+}

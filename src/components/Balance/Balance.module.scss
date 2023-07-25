@@ -1,0 +1,11 @@
+@use '../../scss/utilities/placeholders';
+
+.Balance {
+    align-items: center;
+
+    justify-content: space-between;
+
+    text-transform: uppercase;
+
+    @extend %box-style;
+}

@@ -1,0 +1,20 @@
+@use '../Form.module.scss';
+@use '../../../scss/utilities/variables' as vars;
+
+.LoginForm {
+    &__title {
+        color: vars.$indigo-800
+    }
+
+    &__innerFlexContainer {
+        @extend .Form__innerFlexContainer;
+    }
+
+    &__controls {
+        margin-top: 25px;
+
+        @extend .Form__controls;
+    }
+
+    @extend .Form;
+}

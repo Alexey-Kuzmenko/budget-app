@@ -1,0 +1,11 @@
+@use '../../scss/utilities/variables' as vars;
+
+.Container {
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+
+    @media (width <= calc(vars.$mobile-l + 100px)) {
+        padding: 0 10px;
+    }
+}
