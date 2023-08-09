@@ -1,5 +1,5 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import apiConfig from '../api/config';
+import apiConfig from '../api/firebase.config';
 import axios from 'axios';
 import { AppDispatch } from '.';
 import { RootState } from '.';

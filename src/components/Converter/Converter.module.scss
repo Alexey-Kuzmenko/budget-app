@@ -1,0 +1,22 @@
+@use '../../scss/utilities/placeholders';
+
+.Converter {
+    @extend %box-style;
+
+    &__innerFlexContainer {
+        width: 100%;
+        @extend %form-flex-container;
+        row-gap: 15px;
+    }
+
+    &__controls {
+        @extend %form-controls-container
+    }
+
+    &__totals {
+        @extend %box-style;
+        margin-bottom: 20px;
+        color: #000;
+    }
+
+}

@@ -3,7 +3,7 @@ import { BudgetItem } from '../models/budget.types';
 import { UUID } from 'uuid-generator-ts';
 import { RootState } from '.';
 import axios from 'axios';
-import apiConfig from '../api/config';
+import apiConfig from '../api/firebase.config';
 
 const { url } = apiConfig;
 
@@ -77,7 +77,7 @@ export const deleteBudgetItems = createAsyncThunk<void, { hash: string, id: stri
     async function (itemId, { getState, dispatch }) {
         const dataHash = getState().budget.dataHash;
         const { hash, id } = itemId;
-        // ! testing
+
         if (hash && id) {
             await axios.delete(`${url}/data/${dataHash}/budgetList/${hash}.json`);
             dispatch(deleteBudgetItem(id));
@@ -99,7 +99,7 @@ const budgetSlice = createSlice({
             state.budgetList = state.budgetList.filter((budgetItem) => budgetItem.id !== payload);
         },
         calcTotalBalance: (state) => {
-            let total: number = 0;
+            let total = 0;
 
             state.budgetList.forEach(({ type, value }: BudgetItem) => {
                 if (type === 'income') {

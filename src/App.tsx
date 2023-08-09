@@ -7,7 +7,7 @@ import Logout from './components/Logout/Logout';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { keepSession } from './store/authSlice';
 import { useEffect } from 'react';
-
+import CurrencyPage from './pages/CurrencyPage';
 
 function App() {
   const token = useAppSelector((state) => state.authentication.token);
@@ -23,6 +23,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path='home' element={<HomePage />} />
         <Route path='logout' element={<Logout />} />
+        <Route path='currency' element={<CurrencyPage />} />
         <Route path='*' element={<h1>Page not found</h1>} />
       </Route>
     </Routes>
