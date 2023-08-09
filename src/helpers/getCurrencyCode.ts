@@ -1,5 +1,4 @@
 export default function getCurrencyCode(currency: string): string | null {
-    // * income string 'UAH | Ukranian grivna'
     const trimedStr: string = currency.trim();
     let currencyCode: string;
 

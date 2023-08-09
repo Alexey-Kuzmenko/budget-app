@@ -28,7 +28,8 @@ function Converter() {
             baseCurrency: '',
             targetCurrency: '',
             value: ''
-        }
+        },
+        mode: 'onBlur'
     });
 
     const onFormSubmitHandler: SubmitHandler<FormData> = (formData): void => {
@@ -58,6 +59,7 @@ function Converter() {
                     <Controller
                         name='baseCurrency'
                         control={control}
+                        rules={{ required: { value: true, message: 'This field is required' } }}
                         render={({ field: { onChange, value } }) =>
                             <Autocomplete
                                 disablePortal
@@ -65,7 +67,7 @@ function Converter() {
                                 id="base-currency-combo-box"
                                 options={currencies}
                                 sx={{ width: '100%' }}
-                                renderInput={(params) => <TextField {...params} label="Base currency" />}
+                                renderInput={(params) => <TextField {...params} label="Base currency" error={errors.targetCurrency ? true : false} helperText={errors.baseCurrency?.message ? errors.baseCurrency?.message : ''} />}
                                 onChange={(_, data) => {
                                     onChange(data);
                                     return data;
@@ -77,6 +79,7 @@ function Converter() {
                     <Controller
                         name='targetCurrency'
                         control={control}
+                        rules={{ required: { value: true, message: 'This field is required' } }}
                         render={({ field: { onChange, value } }) =>
                             <Autocomplete
                                 disablePortal
@@ -84,7 +87,7 @@ function Converter() {
                                 id="target-currency-combo-box"
                                 options={currencies}
                                 sx={{ width: '100%' }}
-                                renderInput={(params) => <TextField {...params} label="Target currency" />}
+                                renderInput={(params) => <TextField {...params} label="Target currency" error={errors.targetCurrency ? true : false} helperText={errors.baseCurrency?.message ? errors.baseCurrency?.message : ''} />}
                                 onChange={(_, data) => {
                                     onChange(data);
                                     return data;
@@ -96,7 +99,16 @@ function Converter() {
                     <Controller
                         name='value'
                         control={control}
-                        render={({ field }) => <TextField id="value" label="Value" variant="outlined" type='text' {...field} />}
+                        rules={{ required: { value: true, message: 'This field is required' }, pattern: { value: /^ -?\d+(\.\d+)?$/, message: 'Invalid value, value must be a number' } }}
+                        render={({ field }) => <TextField
+                            id="value"
+                            label="Value"
+                            variant="outlined"
+                            type='text'
+                            error={errors.value ? true : false}
+                            helperText={errors.value?.message ? errors.value?.message : ''}
+                            {...field}
+                        />}
                     />
 
 
