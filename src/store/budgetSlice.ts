@@ -99,7 +99,7 @@ const budgetSlice = createSlice({
             state.budgetList = state.budgetList.filter((budgetItem) => budgetItem.id !== payload);
         },
         calcTotalBalance: (state) => {
-            let total: number = 0;
+            let total = 0;
 
             state.budgetList.forEach(({ type, value }: BudgetItem) => {
                 if (type === 'income') {
