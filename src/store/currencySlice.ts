@@ -40,35 +40,32 @@ const initialState: CurrencyState = {
     error: null
 };
 
-export const fetchCurrencies = createAsyncThunk<Currencies, void, { rejectValue: string }>(
+export const fetchCurrencies = createAsyncThunk<Currencies, void, { rejectValue: boolean }>(
     'currency/fetchCurrencies',
     async function (_, { rejectWithValue }) {
-        const response = await axios.get<Currencies>(`${url}/currencies?apikey=${apiKey}`);
-        const data = response.data;
+        try {
+            const response = await axios.get<Currencies>(`${url}/currencies?apikey=${apiKey}`);
+            const data = response.data;
+            return data;
 
-        if (response.status / 100 !== 2) {
-            return rejectWithValue(response.statusText);
+        } catch (error) {
+            return rejectWithValue(true);
         }
-
-        return data;
 
     }
 );
 
-export const getRates = createAsyncThunk<undefined, FormData, { dispatch: AppDispatch, rejectValue: string }>(
+export const getRates = createAsyncThunk<undefined, FormData, { dispatch: AppDispatch, rejectValue: boolean }>(
     'currency/convert',
     async function ({ baseCurrency, targetCurrency, value }, { rejectWithValue, dispatch }) {
+        try {
+            const response = await axios.get<CurrencyRate>(`${url}/latest?apikey=${apiKey}&base_currency=${baseCurrency}&currencies=${targetCurrency}`);
+            const data = response.data;
+            dispatch(convertRate({ userValue: value, rate: data.data }));
 
-        const response = await axios.get<CurrencyRate>(`${url}/latest?apikey=${apiKey}&base_currency=${baseCurrency}&currencies=${targetCurrency}`);
-
-        if (response.status !== 200) {
-            return rejectWithValue(response.statusText);
+        } catch (error) {
+            return rejectWithValue(true);
         }
-
-        const data = response.data;
-
-        dispatch(convertRate({ userValue: value, rate: data.data }));
-
     });
 
 const currencySlice = createSlice({
@@ -100,6 +97,7 @@ const currencySlice = createSlice({
                     return `${code} | ${name_plural}`;
                 });
                 state.currencies = currencies;
+                state.isLoad = true;
             })
             .addCase(getRates.pending, (state) => {
                 state.error = null;
@@ -108,8 +106,9 @@ const currencySlice = createSlice({
             .addCase(getRates.fulfilled, (state) => {
                 state.isLoad = true;
             })
-            .addMatcher(isError, (state, action: PayloadAction<string>) => {
+            .addMatcher(isError, (state, action: PayloadAction<boolean>) => {
                 state.error = action.payload;
+                state.isLoad = true;
             });
     },
 });

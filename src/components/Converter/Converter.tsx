@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import styles from './Converter.module.scss';
-import { Autocomplete, TextField, Button, Box, Typography } from '@mui/material';
+import { Autocomplete, TextField, Button, Box, Typography, Alert } from '@mui/material';
 import getCurrencyCode from '../../helpers/getCurrencyCode';
 import { getRates, resetValue } from '../../store/currencySlice';
 
@@ -12,7 +12,7 @@ export interface FormData {
 }
 
 function Converter() {
-    const { currencies, value } = useAppSelector((state) => state.currency);
+    const { currencies, value, error } = useAppSelector((state) => state.currency);
     const dispatch = useAppDispatch();
 
     const {
@@ -99,7 +99,7 @@ function Converter() {
                     <Controller
                         name='value'
                         control={control}
-                        rules={{ required: { value: true, message: 'This field is required' }, pattern: { value: /^ -?\d+(\.\d+)?$/, message: 'Invalid value, value must be a number' } }}
+                        rules={{ required: { value: true, message: 'This field is required' }, pattern: { value: /^\d+$/, message: 'Invalid value, value must be a number' } }}
                         render={({ field }) => <TextField
                             id="value"
                             label="Value"
@@ -119,10 +119,14 @@ function Converter() {
                 </div>
 
             </form>
-
-            <Box className={styles.Converter__totals}>
-                <Typography variant='h6'>Value: {value}</Typography>
-            </Box>
+            {
+                error ?
+                    <Alert severity="error" className={styles.Converter__alert}>Error! Fail to fetch</Alert>
+                    :
+                    <Box className={styles.Converter__totals}>
+                        <Typography variant='h6'>Value: {value}</Typography>
+                    </Box>
+            }
         </>
     );
 }

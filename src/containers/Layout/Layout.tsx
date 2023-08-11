@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import Container from '../Container/Container';
 import Header from '../../components/Header/Header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-// ! testing
 import { useEffect } from 'react';
 import { fetchCurrencies } from '../../store/currencySlice';
 
@@ -13,7 +12,6 @@ function Layout() {
     const mainVisibility = menuIsOpen ? 'hidden' : 'visible';
     const dispatch = useAppDispatch();
 
-    // ? potential solution
     useEffect(() => {
         dispatch(fetchCurrencies());
     }, []);
