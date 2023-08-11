@@ -3,7 +3,7 @@ import budgetReducer from './budgetSlice';
 import dialogReducer from './dialogSlice';
 import navReducer from './navSlice';
 import authReducer from './authSlice';
-
+import currencyReducer from './currencySlice';
 
 const store = configureStore({
     reducer: {
@@ -11,6 +11,7 @@ const store = configureStore({
         dialog: dialogReducer,
         navigation: navReducer,
         authentication: authReducer,
+        currency: currencyReducer,
     }
 });
 

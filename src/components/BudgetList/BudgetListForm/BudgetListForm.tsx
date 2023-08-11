@@ -1,6 +1,6 @@
 import styles from './BudgetListForm.module.scss';
 import Box from '@mui/material/Box';
-import { TextField, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent, Typography } from '@mui/material';
+import { TextField, SelectChangeEvent, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { ReactNode, useState } from 'react';
@@ -12,7 +12,7 @@ interface BudgetListFormProps {
     selectChangeHandler: ((event: SelectChangeEvent<string>, child: ReactNode) => void) | undefined
 }
 
-function BudgetListForm({ inputValue, selectValue, inputChangeHandler, selectChangeHandler }: BudgetListFormProps) {
+function BudgetListForm({ inputValue, inputChangeHandler }: BudgetListFormProps) {
     const [showForm, setShowForm] = useState(false);
 
     const onToggleClickHandler = () => {
@@ -32,22 +32,7 @@ function BudgetListForm({ inputValue, selectValue, inputChangeHandler, selectCha
             {
                 showForm ?
                     <Box className={styles.BudgetListForm}>
-                        <TextField id="search-input" label="Search" variant="filled" value={inputValue} onChange={inputChangeHandler} />
-
-                        <FormControl variant='filled' sx={{ width: '100%', maxWidth: '100px' }}>
-                            <InputLabel id='sort-select-label'>Type</InputLabel>
-                            <Select
-                                labelId='sort-select-label'
-                                id='sort-items-select'
-                                value={selectValue}
-                                label='Type'
-                                onChange={selectChangeHandler}
-                            >
-                                <MenuItem value="">None</MenuItem>
-                                <MenuItem value='income'>Income</MenuItem>
-                                <MenuItem value='outcome'>Outcome</MenuItem>
-                            </Select>
-                        </FormControl>
+                        <TextField id="search-input" label="Search" variant="filled" value={inputValue} onChange={inputChangeHandler} sx={{ width: '100%' }} />
                     </Box>
                     : null
             }
