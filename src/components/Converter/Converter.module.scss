@@ -1,22 +1,23 @@
 @use '../../scss/utilities/placeholders';
 
 .Converter {
-    @extend %box-style;
-
     &__innerFlexContainer {
         width: 100%;
-        @extend %form-flex-container;
         row-gap: 15px;
+
+        @extend %form-flex-container;
     }
 
     &__controls {
-        @extend %form-controls-container
+        @extend %form-controls-container;
     }
 
     &__totals {
-        @extend %box-style;
-        margin-bottom: 20px;
+        margin-bottom: 0;
+
         color: #000;
+
+        @extend %box-style;
     }
 
     &__alert {
@@ -24,5 +25,7 @@
         max-width: 550px;
         margin: 0 auto;
     }
+
+    @extend %box-style;
 
 }

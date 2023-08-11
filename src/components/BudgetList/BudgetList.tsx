@@ -4,7 +4,6 @@ import BudgetListItem from './BudgetListItem/BudgetListItem';
 import { Typography, Alert } from '@mui/material';
 import { BudgetItem } from '../../models/budget.types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-// ! testing deleteBudgetItems
 import { deleteBudgetItems } from '../../store/budgetSlice';
 import DialogWindow from '../Dialog/Dialog';
 import { showDialog } from '../../store/dialogSlice';
@@ -32,7 +31,6 @@ function BudgetList() {
     };
 
     const onAcceptClickHandler = () => {
-        // ! testing
         dispatch(deleteBudgetItems(deleteItemId));
         dispatch(showDialog('hidden'));
     };
@@ -43,11 +41,8 @@ function BudgetList() {
         setInputValue(value);
     };
 
-    // ? potential solution
     const onSelectChangeHandler = (e: SelectChangeEvent) => {
         const value: string = e.target.value;
-        // ! debug
-        console.log(value);
         setSelectValue(value);
     };
 

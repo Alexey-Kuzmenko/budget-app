@@ -1,18 +1,21 @@
 @use './variables' as vars;
 
+%form-style {
+    max-width: 550px;
+    margin: 0 auto 50px;
+
+    border-radius: vars.$border-radius;
+    background-color: vars.$white;
+}
+
 %box-style {
     display: flex;
 
-    max-width: 550px;
-    margin: 0 auto;
-    margin-bottom: 50px;
     padding: 20px 15px;
 
     text-align: justify;
 
-    border-radius: vars.$border-radius;
-
-    background-color: vars.$white;
+    @extend %form-style;
 }
 
 %form-flex-container {

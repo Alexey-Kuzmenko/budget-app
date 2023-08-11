@@ -31,7 +31,6 @@ const initialState: AuthSate = {
     error: null,
 };
 
-// * be attention with this type {name: string}
 const createUserData = createAsyncThunk<{ name: string }, ApiResponse, { rejectValue: string }>(
     'auth/createUserData',
     async ({ localId, email }, { rejectWithValue }) => {
@@ -167,23 +166,7 @@ const authSlice = createSlice({
             .addCase(signUp.pending, (state) => {
                 state.error = null;
             })
-            .addCase(createUserData.fulfilled, (state, action) => {
-                // ! debug
-                console.log(action.payload);
-            })
-            .addCase(signIn.fulfilled, (state, action) => {
-                // ! debug
-                console.log(action.payload);
-            })
-            .addCase(signUp.fulfilled, (state, action) => {
-                // ! debug
-                console.log(action.payload);
-            })
-            .addCase(keepSession.fulfilled, () => {
-                // ! debug
-                console.log('keep session');
-            })
-            .addCase(autoLogout.rejected, (state, action) => {
+            .addCase(autoLogout.rejected, (_, action) => {
                 console.error(action.payload);
             })
             .addMatcher(isError, (state, action: PayloadAction<string>) => {
