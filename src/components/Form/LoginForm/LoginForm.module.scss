@@ -1,20 +1,24 @@
-@use '../Form.module.scss';
 @use '../../../scss/utilities/variables' as vars;
+@use '../../../scss/utilities/placeholders';
 
 .LoginForm {
+    padding: 30px 15px 20px;
+
     &__title {
         color: vars.$indigo-800
     }
 
     &__innerFlexContainer {
-        @extend .Form__innerFlexContainer;
+        row-gap: 20px;
+
+        @extend %form-flex-container;
     }
 
     &__controls {
         margin-top: 25px;
 
-        @extend .Form__controls;
+        @extend %form-controls-container
     }
 
-    @extend .Form;
+    @extend %form-style;
 }
