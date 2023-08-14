@@ -29,23 +29,24 @@ The user authentication feature in Budget App allows users to log in to the app 
 
 The user form validation feature in Budget App helps to prevent users from creating accounts and budget item with invalid information.
 
-**Login form validation**:
+**Login form validation**: <br/>
 ![Login form validation](https://drive.google.com/uc?id=1qDe1B5Xapox5NPgGxrqALX3QYKuS1YEm)
 
-**Budget form validation**:
+**Budget form validation**: <br/>
+
 ![Form validation](https://drive.google.com/uc?id=1AEnGIxGWRg9ax4ODsAYgD0_xVrwoioDa)
 
 ### Dynamic budget counter
 
 Dynamic budget counter dynamically counts user's budget and displays it. The counter also has an emoji indicator that shows the user's budget status.
 
-**User's budget equals to zero:**
+**User's budget equals to zero:** <br/>
 ![Budget counter](https://drive.google.com/uc?id=1zZmsJSL-EVZMxVOkqTInsHP-Nt7HQl-e)
 
-**User budget greater than zero:**
+**User budget greater than zero:** <br/>
 ![Budget counter](https://drive.google.com/uc?id=1slCZwu34OKUP_KuCuGLUi26efNcOrTWr)
 
-**User budget less than zero:**
+**User budget less than zero:** <br/>
 ![Budget counter](https://drive.google.com/uc?id=1YiNUuqjp7_LpxwsKSj9GiXOyKbMcKUFp)
 
 ### Currency converter
