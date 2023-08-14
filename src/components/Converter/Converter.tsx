@@ -124,7 +124,7 @@ function Converter() {
                     <Alert severity="error" className={styles.Converter__alert}>Error! Fail to fetch</Alert>
                     :
                     <Box className={styles.Converter__totals}>
-                        <Typography variant='h6'>Value: {value}</Typography>
+                        <Typography variant='h6'>Value: {value.toLocaleString('uk-UA')}</Typography>
                     </Box>
             }
         </>

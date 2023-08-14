@@ -25,6 +25,10 @@ The user authentication feature in Budget App allows users to log in to the app 
 
 ![User authentication](https://drive.google.com/uc?id=1SuF5Ur0-p8GrDGY-fI0UPcxL9qCjzFC9)
 
+### Unique users data
+
+All users have unique data in Budget App. If you a new user, you have an empty budget list. If you already have an account in app and items in your budget, you will get all your data. The unique user data feature is implemented using the Firebase Realtime Database.
+
 ### Form validation
 
 The user form validation feature in Budget App helps to prevent users from creating accounts and budget item with invalid information.
