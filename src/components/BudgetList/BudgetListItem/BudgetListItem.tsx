@@ -21,7 +21,7 @@ function BudgetListItem({ type, value, comment, onClickHandler }: BudgetItemProp
                     </Typography>
 
                     <Typography variant="h5" component="div">
-                        {type === 'outcome' ? `-${value}` : value}
+                        {type === 'outcome' ? `-${value.toLocaleString('uk-UA')}` : value.toLocaleString('uk-UA')}
                     </Typography>
                 </div>
 

@@ -23,7 +23,7 @@ function Balance() {
 
     return (
         <div className={styles.Balance}>
-            <Typography sx={elementsStyles} component='h1' variant="h6">Balance: {totalBalance}</Typography>
+            <Typography sx={elementsStyles} component='h1' variant="h6">Balance: {totalBalance.toLocaleString('uk-UA')}</Typography>
             {
                 totalBalance > 0 ?
                     <MoodIcon sx={elementsStyles} />
